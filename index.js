@@ -1,12 +1,13 @@
+const { Pool } = require("pg");
+require("dotenv").config();
 
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
+});
+
+console.log("DEBUG DATABASE_URL:", process.env.DATABASE_URL);
+
+module.exports = pool;
